@@ -1,0 +1,49 @@
+﻿using System;
+using System.Threading.Tasks;
+
+namespace VRChat.Models.Authentication
+{
+    public class VRCUser : VRCUserCore, IVRCUser
+    {
+        public string InstanceId { get; init; }
+        public bool AllowAvatarCopying { get; init; }
+        public string[] BioLinks { get; init; }
+        public DateTime DateJoined { get; init; }
+        public DateTime? LastLogin { get; init; }
+        public string WorldId { get; init; }
+        public VRCUserState State { get; init; }
+        public VRCUserStatus Status { get; init; }
+
+        public Task BlockAsync()
+        {
+            Console.WriteLine("Auth: " + _caller.Credentials.Auth);
+            Console.WriteLine("Block called");
+            return Task.CompletedTask;
+        }
+
+        public Task HideAvatarAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task MuteAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ShowAvatarAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UnblockAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task UnmuteAsync()
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
