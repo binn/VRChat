@@ -27,8 +27,8 @@ namespace VRChat.Client
         {
             _client.BaseAddress = _environment.ToUri();
             var rest = new VRChatRestClient(_notFoundBehavior, _environment, _client, _handler);
+            
             rest.SetApiKey(_apiKey);
-
             return rest;
         }
 

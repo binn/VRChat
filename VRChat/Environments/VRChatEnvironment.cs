@@ -26,10 +26,10 @@ namespace VRChat.Environments
 
     public partial class VRChatEnvironment
     {
-        public static VRChatEnvironment VRChatGlobalCloud = 
+        public readonly static VRChatEnvironment VRChatGlobalCloud = 
             new VRChatEnvironment("https://api.vrchat.cloud/", "/api/1/");
 
-        public static VRChatEnvironment VRChatWebProxy =
+        public readonly static VRChatEnvironment VRChatWebProxy =
             new VRChatEnvironment("https://vrchat.com/", "/api/1/");
     }
 }

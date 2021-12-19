@@ -23,6 +23,8 @@ namespace VRChat.Client
 
         void SetCookie(string cookie);
         void SetAuth(string auth, string apiKey);
+        string GetCookie(string name);
+        DateTime CookieExpiry(string name);
 
         Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, int expectedStatusCode, NotFoundBehavior? behavior = null, CancellationToken ct = default);
         Task<HttpResponseMessage> GetAsync(string endpoint, int expectedStatusCode, NotFoundBehavior? behavior = null, CancellationToken ct = default);
@@ -134,6 +136,7 @@ namespace VRChat.Client
             return new Exception();
         }
 
+        [Obsolete("Should not be used over the CookieContainer")]
         public void SetCookie(string cookie)
         {
             _client.DefaultRequestHeaders.Remove("Cookie");
@@ -148,11 +151,39 @@ namespace VRChat.Client
             if (auth != null)
                 cookie += $" auth={auth};";
 
-            SetCookie(cookie);
+            _handler.CookieContainer.SetCookies(new Uri(_environment.Endpoint), cookie);
         }
 
         public void SetApiKey(string apiKey) =>
             _apiKey = apiKey;
+
+        public string GetCookie(string name)
+        {
+            CookieCollection cookies = _handler.CookieContainer.GetCookies(_environment.BaseAddress);
+         
+            foreach(var ck in cookies)
+            {
+                var cookie = (Cookie)ck;
+                if (cookie.Name == name)
+                    return cookie.Value;
+            }
+
+            return null;
+        }
+
+        public DateTime CookieExpiry(string name)
+        {
+            CookieCollection cookies = _handler.CookieContainer.GetCookies(_environment.BaseAddress);
+
+            foreach (var ck in cookies)
+            {
+                var cookie = (Cookie)ck;
+                if (cookie.Name == name)
+                    return cookie.Expires;
+            }
+
+            return default;
+        }
     }
 
     public static class UriExtensions

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace VRChat.Models.Authentication
@@ -12,6 +13,8 @@ namespace VRChat.Models.Authentication
         public string DisplayName { get; init; }
         public string Bio { get; init; }
         public bool IsFriend { get; init; }
+
+        [JsonPropertyName("last_platform")]
         public string LastPlatform { get; init; }
         public string ProfilePicOverride { get; init; }
         public string StatusDescription { get; init; }

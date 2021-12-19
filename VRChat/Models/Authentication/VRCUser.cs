@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace VRChat.Models.Authentication
@@ -8,7 +9,11 @@ namespace VRChat.Models.Authentication
         public string InstanceId { get; init; }
         public bool AllowAvatarCopying { get; init; }
         public string[] BioLinks { get; init; }
+
+        [JsonPropertyName("date_joined")] // Possibly make internal methods for getters/setters so that this doesn't get reserialized into date_joined
         public DateTime DateJoined { get; init; }
+
+        [JsonPropertyName("last_login")]
         public DateTime? LastLogin { get; init; }
         public string WorldId { get; init; }
         public VRCUserState State { get; init; }

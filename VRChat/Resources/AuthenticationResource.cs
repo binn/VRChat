@@ -35,7 +35,7 @@ namespace VRChat.Resources
         public async Task<VRCAuthenticatedUser> GetCurrentUserAsync(NotFoundBehavior? behavior = null, CancellationToken ct = default)
         {
             using var res = await _client.GetAsync("auth/user", 200, behavior, ct).ConfigureAwait(false);
-            return await res.Content.ReadFromJsonAsync<VRCAuthenticatedUser>(_client.Json, ct);
+            return await res.Content.ReadFromJsonAsync<VRCAuthenticatedUser>(_client.Json, ct).ConfigureAwait(false);
         }
 
         public Task<bool> IsValidAuthCookieAsync(string authCookie)
@@ -48,28 +48,43 @@ namespace VRChat.Resources
             // move this to Endpoints.Authentication.GetCurrentUser in the future
             using(var req = new HttpRequestMessage(HttpMethod.Get, "auth/user"))
             {
+                // move this code somewhere else
                 string header = WebUtility.HtmlEncode(_caller.Credentials.Username) + ":" + WebUtility.HtmlEncode(_caller.Credentials.Password);
                 req.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes(header)));
 
                 using (var res = await _client.SendAsync(req, 200, behavior, ct).ConfigureAwait(false))
                 {
-                    foreach(var cookie in res.Headers.GetValues("Set-Cookie")) // MOVE THIS CODE SOMEWHERE ELSE
-                    {
-                        var cookieItems = cookie.Split(';');
-                        var auth = cookieItems.FirstOrDefault(x => x.StartsWith("auth"));
-                        var apiKey = cookieItems.FirstOrDefault(x => x.StartsWith("apiKey"));
+                    //foreach(var cookie in res.Headers.GetValues("Set-Cookie")) // MOVE THIS CODE SOMEWHERE ELSE
+                    //{
+                    //    var cookieItems = cookie.Split(';');
+                    //    var auth = cookieItems.FirstOrDefault(x => x.StartsWith("auth"));
+                    //    var apiKey = cookieItems.FirstOrDefault(x => x.StartsWith("apiKey"));
 
-                        if (auth != null)
-                            _caller.Credentials.Auth = auth.Split('=').LastOrDefault();
+                    //    if (auth != null)
+                    //        _caller.Credentials.Auth = auth.Split('=').LastOrDefault();
 
-                        if(apiKey != null)
-                            _caller.Credentials.ApiKey = apiKey.Split('=').LastOrDefault();
+                    //    if(apiKey != null)
+                    //        _caller.Credentials.ApiKey = apiKey.Split('=').LastOrDefault();
 
-                        _client.SetAuth(_caller.Credentials.Auth, _caller.Credentials.ApiKey);
-                    }
+                    //    _client.SetAuth(_caller.Credentials.Auth, _caller.Credentials.ApiKey);
+                    //}
 
-                    return await res.Content.ReadFromJsonAsync<VRCAuthenticatedUser>(_client.Json, ct)
+                    var auth = _client.GetCookie("auth");
+                    var apiKey = _client.GetCookie("apiKey");
+
+                    if (auth != null)
+                        _caller.Credentials.Auth = auth;
+
+                    if (apiKey != null)
+                        _caller.Credentials.ApiKey = apiKey;
+
+                    _client.SetAuth(_caller.Credentials.Auth, _caller.Credentials.ApiKey);
+
+                    var user = await res.Content.ReadFromJsonAsync<VRCAuthenticatedUser>(_client.Json, ct)
                         .ConfigureAwait(false);
+
+                    user.SetCaller(_caller);
+                    return user;
                 }
             }
         }
