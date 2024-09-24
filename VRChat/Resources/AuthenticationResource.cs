@@ -35,7 +35,10 @@ namespace VRChat.Resources
         public async Task<VRCAuthenticatedUser> GetCurrentUserAsync(NotFoundBehavior? behavior = null, CancellationToken ct = default)
         {
             using var res = await _client.GetAsync("auth/user", 200, behavior, ct).ConfigureAwait(false);
-            return await res.Content.ReadFromJsonAsync<VRCAuthenticatedUser>(_client.Json, ct).ConfigureAwait(false);
+            var user = await res.Content.ReadFromJsonAsync<VRCAuthenticatedUser>(_client.Json, ct).ConfigureAwait(false);
+            
+            user.SetCaller(_caller);
+            return user;
         }
 
         public Task<bool> IsValidAuthCookieAsync(string authCookie)

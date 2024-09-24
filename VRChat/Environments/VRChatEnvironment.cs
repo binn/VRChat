@@ -18,7 +18,7 @@ namespace VRChat.Environments
         }
 
         public Uri ToUri() =>
-            new Uri(this.ToString());
+            new(this.ToString());
 
         public override string ToString() =>
             $"{_endpoint}/{_path}";
@@ -27,9 +27,9 @@ namespace VRChat.Environments
     public partial class VRChatEnvironment
     {
         public readonly static VRChatEnvironment VRChatGlobalCloud = 
-            new VRChatEnvironment("https://api.vrchat.cloud/", "/api/1/");
+            new("https://api.vrchat.cloud/", "/api/1/");
 
         public readonly static VRChatEnvironment VRChatWebProxy =
-            new VRChatEnvironment("https://vrchat.com/", "/api/1/");
+            new("https://vrchat.com/", "/api/1/");
     }
 }

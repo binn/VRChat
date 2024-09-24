@@ -15,8 +15,8 @@
 
     public partial class VRChatPlatform
     {
-        public static VRChatPlatform Windows => new VRChatPlatform("standalonewindows");
-        public static VRChatPlatform Quest => new VRChatPlatform("android");
+        public static VRChatPlatform Windows => new("standalonewindows");
+        public static VRChatPlatform Quest => new("android");
 
         public const string KnownSDKVersion = "2021.11.08.14.28";
         public const string KnownClientVersion = "2021.4.2p2-1160--Release";
