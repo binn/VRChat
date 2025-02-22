@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Otp.NET" Version="1.4.0" />
+    <PackageReference Include="PureWebSockets" Version="4.0.0" />
+    <PackageReference Include="System.Net.Http.Json" Version="9.0.2" />
+  </ItemGroup>
+
+</Project>

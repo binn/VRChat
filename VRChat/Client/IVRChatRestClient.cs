@@ -23,6 +23,10 @@ namespace VRChat.Client
 
         void SetCookie(string cookie);
         void SetAuth(string auth, string apiKey);
+
+        void SetAuthCookie(string authCookie);
+        void SetTwoFactorCookie(string twoFactorCookie);
+
         string GetCookie(string name);
         DateTime CookieExpiry(string name);
 
@@ -152,6 +156,16 @@ namespace VRChat.Client
                 cookie += $" auth={auth};";
 
             _handler.CookieContainer.SetCookies(new Uri(_environment.Endpoint), cookie);
+        }
+
+        public void SetAuthCookie(string authCookie)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetTwoFactorCookie(string twoFactorCookie)
+        {
+            throw new NotImplementedException();
         }
 
         public void SetApiKey(string apiKey) =>

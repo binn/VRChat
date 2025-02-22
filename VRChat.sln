@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRChat.Tests", "VRChat.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRChat.ImplTest", "VRChat.ImplTest\VRChat.ImplTest.csproj", "{A67D85EF-D312-4C48-A8F2-1B4568E9FF7B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VRChat.NET", "VRChat.NET\VRChat.NET.csproj", "{509D74B6-9712-4A9A-B361-89C41E79060E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A67D85EF-D312-4C48-A8F2-1B4568E9FF7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A67D85EF-D312-4C48-A8F2-1B4568E9FF7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A67D85EF-D312-4C48-A8F2-1B4568E9FF7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{509D74B6-9712-4A9A-B361-89C41E79060E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{509D74B6-9712-4A9A-B361-89C41E79060E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{509D74B6-9712-4A9A-B361-89C41E79060E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{509D74B6-9712-4A9A-B361-89C41E79060E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
